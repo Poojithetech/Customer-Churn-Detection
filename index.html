@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Churn Predictor</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select { 
+            width: 100%; 
+            padding: 8px; 
+            border: 1px solid #ddd; 
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button { 
+            background: #4CAF50; 
+            color: white; 
+            padding: 10px 15px; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .result { 
+            margin-top: 20px; 
+            padding: 15px; 
+            background: #f8f8f8; 
+            border-radius: 4px;
+            border-left: 4px solid #4CAF50;
+        }
+        .error {
+            border-left: 4px solid #f44336;
+        }
+    </style>
+</head>
+<body>
+    <h1>Customer Churn Predictor</h1>
+    <form method="POST">
+        <!-- Numeric Features -->
+        <div class="form-group">
+            <label for="Age">Age:</label>
+            <input type="number" id="Age" name="Age" min="18" max="100" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="Tenure">Tenure (months):</label>
+            <input type="number" id="Tenure" name="Tenure" min="0" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="Usage_Frequency">Usage Frequency (per week):</label>
+            <input type="number" id="Usage_Frequency" name="Usage_Frequency" step="0.1" min="0" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="Support_Calls">Support Calls (last month):</label>
+            <input type="number" id="Support_Calls" name="Support_Calls" min="0" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="Payment_Delay">Payment Delay (days):</label>
+            <input type="number" id="Payment_Delay" name="Payment_Delay" min="0" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="Total_Spend">Total Spend ($):</label>
+            <input type="number" id="Total_Spend" name="Total_Spend" step="0.01" min="0" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="Last_Interaction">Last Interaction (days ago):</label>
+            <input type="number" id="Last_Interaction" name="Last_Interaction" min="0" required>
+        </div>
+        
+        <!-- Categorical Features -->
+        <div class="form-group">
+            <label for="Gender">Gender:</label>
+            <select id="Gender" name="Gender" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="Subscription_Type">Subscription Type:</label>
+            <select id="Subscription_Type" name="Subscription_Type" required>
+                <option value="Standard">Standard</option>
+                <option value="Premium">Premium</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="Contract_Length">Contract Length:</label>
+            <select id="Contract_Length" name="Contract_Length" required>
+                <option value="Monthly">Monthly</option>
+                <option value="Quarterly">Quarterly</option>
+                <option value="Yearly">Yearly</option>
+            </select>
+        </div>
+        
+        <button type="submit">Predict Churn Risk</button>
+    </form>
+    
+    {% if result %}
+    <div class="result {% if 'Error' in result %}error{% endif %}">
+        <h3>Prediction Result:</h3>
+        <p>{{ result }}</p>
+    </div>
+    {% endif %}
+</body>
+</html>
